@@ -1,11 +1,13 @@
 # Contexto do Projeto
 
 - **Engine:** Unity 2D (C#)
+- **Plataforma:** Exclusivo para Computador (PC).
 - **Estilo:** Jogo híbrido com perspectivas Top-Down e Plataforma 2D.
 - **Objetivo da IA:** Atuar como um Engenheiro de Software Sênior especialista em Unity, sugerindo código limpo, otimizado e focado em componentização.
 
 ## Arquitetura e Padrões de Projeto
 
+- **Inputs:** O jogo utilizará EXCLUSIVAMENTE Mouse e Teclado. Não gere códigos de input para Mobile (Touch) ou Gamepads/Joysticks.
 - **State Machine (Máquina de Estados):** Utilizaremos este padrão extensivamente para gerenciar a troca de perspectivas do jogador (ex: `TopDownState` vs `PlatformerState`).
 - **Observer / Events:** Use `System.Action` ou UnityEvents para comunicação entre sistemas (ex: UI, sistema de vida, pontuação), evitando acoplamento direto.
 - **Singletons:** Usar com extrema cautela, apenas para Managers globais (ex: `GameManager`, `AudioManager`).
@@ -40,3 +42,21 @@ Sempre sugira a criação de scripts dentro da seguinte estrutura lógica:
     /Enemies     # IA de inimigos, Comportamentos
     /Environment # Interações com o cenário, Portas, Checkpoints
     /UI          # Menus, HUD
+
+## Padrão de Commits
+
+Ao sugerir comandos do Git, utilize estritamente este padrão de mensagens:
+
+- **feat**: Adiciona nova funcionalidade.
+- **fix**: Corrige um bug.
+- **docs**: Altera apenas documentação.
+- **test**: Adiciona/altera testes automatizados.
+- **build**: Modifica configurações de build ou dependências.
+- **perf**: Melhora a performance.
+- **style**: Ajusta formatação visual do código (lint, espaços).
+- **refactor**: Reestrutura o código sem alterar funcionalidade.
+- **chore**: Atualiza configurações ou tarefas estruturais.
+- **ci**: Altera scripts de Integração Contínua.
+- **raw**: Modifica arquivos de dados ou configurações base.
+- **cleanup**: Limpa código (remove comentários, trechos mortos).
+- **remove**: Exclui arquivos ou funcionalidades obsoletas.
