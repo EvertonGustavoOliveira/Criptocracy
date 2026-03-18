@@ -1,0 +1,59 @@
+# =========================
+# Diretórios gerados pela Unity
+# =========================
+[Ll]ibrary/
+[Tt]emp/
+[Oo]bj/
+[Bb]uild/
+[Bb]uilds/
+[Ll]ogs/
+[Uu]ser[Ss]ettings/
+[Mm]emoryCaptures/
+
+# =========================
+# Arquivos de Cache e Build da Unity
+# =========================
+*.apk
+*.aab
+*.unitypackage
+*.app
+sysinfo.txt
+
+# =========================
+# Arquivos gerados por IDEs (VS Code, Visual Studio, Rider)
+# =========================
+# VS Code
+.vscode/
+
+# Visual Studio
+.vs/
+ExportedObj/
+.consulo/
+*.csproj
+*.unityproj
+*.sln
+*.suo
+*.tmp
+*.user
+*.userprefs
+*.pidb
+*.booproj
+*.svd
+*.pdb
+*.mdb
+*.opendb
+*.VC.db
+
+# JetBrains Rider
+.idea/
+
+# =========================
+# Arquivos do Sistema Operacional
+# =========================
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
