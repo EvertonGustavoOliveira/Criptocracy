@@ -7,7 +7,7 @@ public class PlayerMovement : MonoBehaviour
     [Header("Configurações de Movimento")]
     [SerializeField] private float speed = 5f;
     [SerializeField] private float jumpForce = 10f;
-    [SerializeField] private string menuSceneName = "MenuFases"; // Nome exato da sua cena de menu
+    [SerializeField] private string menuSceneName = "MenuFases"; 
 
     [Header("Cores")]
     [SerializeField] private Color defaultColor = Color.white;
