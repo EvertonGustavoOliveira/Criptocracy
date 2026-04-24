@@ -9,6 +9,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float jumpForce = 10f;
     [SerializeField] private string menuSceneName = "MenuFases"; 
 
+    [SerializeField] private Animator animator;
     [Header("Cores")]
     [SerializeField] private Color defaultColor = Color.white;
     [SerializeField] private Color alternateColor = Color.red;
@@ -47,9 +48,17 @@ public class PlayerMovement : MonoBehaviour
 
         input = Vector2.zero;
 
-        if (keyboard.aKey.isPressed || keyboard.leftArrowKey.isPressed) input.x -= 1f;
-        if (keyboard.dKey.isPressed || keyboard.rightArrowKey.isPressed) input.x += 1f;
+        if (keyboard.aKey.isPressed || keyboard.leftArrowKey.isPressed) {
+            animator.SetBool("isRunning", true);
+            input.x -= 1f;
+        }
 
+
+        
+        if (keyboard.dKey.isPressed || keyboard.rightArrowKey.isPressed) {
+            animator.SetBool("isRunning", true);
+            input.x += 1f;
+        }
         if (isMenuScene)
         {
             if (keyboard.sKey.isPressed || keyboard.downArrowKey.isPressed) input.y -= 1f;

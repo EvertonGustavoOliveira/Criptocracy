@@ -302,7 +302,6 @@ GameObject:
   - component: {fileID: 976078994}
   - component: {fileID: 976078993}
   - component: {fileID: 976078992}
-  - component: {fileID: 976078995}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -319,8 +318,8 @@ Transform:
   m_GameObject: {fileID: 976078986}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.69, y: -2.82, z: 0}
-  m_LocalScale: {x: 0.7390935, y: 0.7390935, z: 0.7390935}
+  m_LocalPosition: {x: 2.75, y: -2.73, z: 0}
+  m_LocalScale: {x: 0.5655247, y: 0.5655247, z: 0.5655247}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1092804508}
@@ -472,31 +471,8 @@ MonoBehaviour:
   speed: 5
   jumpForce: 10
   menuSceneName: MenuFases
-  animator: {fileID: 976078995}
   defaultColor: {r: 1, g: 1, b: 1, a: 1}
   alternateColor: {r: 1, g: 0, b: 0, a: 1}
---- !u!95 &976078995
-Animator:
-  serializedVersion: 7
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 976078986}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 1beb17a665ba87da08a5f8d395f82dd0, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_AnimatePhysics: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &1025722912
 GameObject:
   m_ObjectHideFlags: 0
