@@ -1,31 +1,43 @@
 fileFormatVersion: 2
-guid: 0f2600196b35c3bd4841f23f72cd87cd
+guid: d69367d9285e92eafb883fb4712bad76
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 3424952333167791513
-    second: pulando_0
+      213: -2993905097517149574
+    second: allSpritesprota-export_0
   - first:
-      213: -8701964571014227544
-    second: pulando_1
+      213: -2570424777052134806
+    second: allSpritesprota-export_1
   - first:
-      213: 2896912392724677867
-    second: pulando_2
+      213: 365815560965821632
+    second: allSpritesprota-export_2
   - first:
-      213: -1340221959322816823
-    second: pulando_3
+      213: -5880309550303657945
+    second: allSpritesprota-export_3
   - first:
-      213: -6654517941629692654
-    second: pulando_4
+      213: 190630505625923338
+    second: allSpritesprota-export_4
   - first:
-      213: 8069121347018011991
-    second: pulando_5
+      213: 266243060384161514
+    second: allSpritesprota-export_5
   - first:
-      213: -5142084418859777655
-    second: pulando_6
+      213: 3853496449466633217
+    second: allSpritesprota-export_6
   - first:
-      213: -2479534573198160313
-    second: pulando_7
+      213: -8884017913697266006
+    second: allSpritesprota-export_7
+  - first:
+      213: 226618626141017210
+    second: allSpritesprota-export_8
+  - first:
+      213: 3381732158333058210
+    second: allSpritesprota-export_9
+  - first:
+      213: -6196337757172188778
+    second: allSpritesprota-export_10
+  - first:
+      213: 2311837910170911942
+    second: allSpritesprota-export_11
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -121,13 +133,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: pulando_0
+      name: allSpritesprota-export_0
       rect:
         serializedVersion: 2
-        x: 34
-        y: 130
-        width: 52
-        height: 124
+        x: 89
+        y: 649
+        width: 122
+        height: 292
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -136,20 +148,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 99d8c173000e78f20800000000000000
-      internalID: 3424952333167791513
+      spriteID: a72524b1d238376d0800000000000000
+      internalID: -2993905097517149574
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: pulando_1
+      name: allSpritesprota-export_1
       rect:
         serializedVersion: 2
-        x: 162
-        y: 130
-        width: 52
-        height: 104
+        x: 409
+        y: 649
+        width: 122
+        height: 302
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -158,20 +170,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 8a999a0e3596c3780800000000000000
-      internalID: -8701964571014227544
+      spriteID: a62e1f1b844045cd0800000000000000
+      internalID: -2570424777052134806
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: pulando_2
+      name: allSpritesprota-export_2
       rect:
         serializedVersion: 2
-        x: 278
-        y: 134
-        width: 64
-        height: 120
+        x: 79
+        y: 329
+        width: 122
+        height: 292
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -180,20 +192,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: be408c10976e33820800000000000000
-      internalID: 2896912392724677867
+      spriteID: 0c49da48053a31500800000000000000
+      internalID: 365815560965821632
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: pulando_3
+      name: allSpritesprota-export_3
       rect:
         serializedVersion: 2
-        x: 406
-        y: 138
-        width: 64
-        height: 116
+        x: 399
+        y: 329
+        width: 132
+        height: 302
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -202,20 +214,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 9cea2629a33966de0800000000000000
-      internalID: -1340221959322816823
+      spriteID: 72040d48e91f46ea0800000000000000
+      internalID: -5880309550303657945
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: pulando_4
+      name: allSpritesprota-export_4
       rect:
         serializedVersion: 2
-        x: 538
-        y: 146
-        width: 76
-        height: 104
+        x: 719
+        y: 329
+        width: 172
+        height: 302
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -224,20 +236,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 215d2b1703766a3a0800000000000000
-      internalID: -6654517941629692654
+      spriteID: a0faf235f6145a200800000000000000
+      internalID: 190630505625923338
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: pulando_5
+      name: allSpritesprota-export_5
       rect:
         serializedVersion: 2
-        x: 30
-        y: 2
-        width: 52
-        height: 116
+        x: 89
+        y: 9
+        width: 122
+        height: 252
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -246,20 +258,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 755b782fc174bff60800000000000000
-      internalID: 8069121347018011991
+      spriteID: aee5c1e17a2e1b300800000000000000
+      internalID: 266243060384161514
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: pulando_6
+      name: allSpritesprota-export_6
       rect:
         serializedVersion: 2
-        x: 158
-        y: 2
-        width: 56
-        height: 124
+        x: 379
+        y: 19
+        width: 152
+        height: 292
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -268,20 +280,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 981cac80775a3a8b0800000000000000
-      internalID: -5142084418859777655
+      spriteID: 10c00b5aa9e5a7530800000000000000
+      internalID: 3853496449466633217
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: pulando_7
+      name: allSpritesprota-export_7
       rect:
         serializedVersion: 2
-        x: 286
-        y: 2
-        width: 72
-        height: 124
+        x: 699
+        y: 29
+        width: 152
+        height: 282
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -290,8 +302,96 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 74e493c517ce69dd0800000000000000
-      internalID: -2479534573198160313
+      spriteID: aa61edbe6c0a5b480800000000000000
+      internalID: -8884017913697266006
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: allSpritesprota-export_8
+      rect:
+        serializedVersion: 2
+        x: 1029
+        y: 49
+        width: 182
+        height: 252
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a745f96907c152300800000000000000
+      internalID: 226618626141017210
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: allSpritesprota-export_9
+      rect:
+        serializedVersion: 2
+        x: 1359
+        y: 9
+        width: 122
+        height: 282
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2acf4f61b735eee20800000000000000
+      internalID: 3381732158333058210
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: allSpritesprota-export_10
+      rect:
+        serializedVersion: 2
+        x: 1679
+        y: 9
+        width: 132
+        height: 302
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6993963b3af220aa0800000000000000
+      internalID: -6196337757172188778
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: allSpritesprota-export_11
+      rect:
+        serializedVersion: 2
+        x: 1999
+        y: 9
+        width: 172
+        height: 302
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6c4c406a45c451020800000000000000
+      internalID: 2311837910170911942
       vertices: []
       indices: 
       edges: []
@@ -310,14 +410,18 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      pulando_0: 3424952333167791513
-      pulando_1: -8701964571014227544
-      pulando_2: 2896912392724677867
-      pulando_3: -1340221959322816823
-      pulando_4: -6654517941629692654
-      pulando_5: 8069121347018011991
-      pulando_6: -5142084418859777655
-      pulando_7: -2479534573198160313
+      allSpritesprota-export_0: -2993905097517149574
+      allSpritesprota-export_1: -2570424777052134806
+      allSpritesprota-export_10: -6196337757172188778
+      allSpritesprota-export_11: 2311837910170911942
+      allSpritesprota-export_2: 365815560965821632
+      allSpritesprota-export_3: -5880309550303657945
+      allSpritesprota-export_4: 190630505625923338
+      allSpritesprota-export_5: 266243060384161514
+      allSpritesprota-export_6: 3853496449466633217
+      allSpritesprota-export_7: -8884017913697266006
+      allSpritesprota-export_8: 226618626141017210
+      allSpritesprota-export_9: 3381732158333058210
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

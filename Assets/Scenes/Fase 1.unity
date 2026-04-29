@@ -319,7 +319,7 @@ Transform:
   m_GameObject: {fileID: 976078986}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: -0.03, z: 0}
   m_LocalScale: {x: 0.7390935, y: 0.7390935, z: 0.7390935}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -374,12 +374,12 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_MaskInteraction: 0
-  m_Sprite: {fileID: 9109038416677225972, guid: 73f7780803e533294977122d47a04052, type: 3}
+  m_Sprite: {fileID: -2993905097517149574, guid: d69367d9285e92eafb883fb4712bad76, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1.24, y: 3.04}
+  m_Size: {x: 1.2199999, y: 2.9209504}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -449,8 +449,8 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1.24, y: 3.04}
-    newSize: {x: 1.24, y: 3.04}
+    oldSize: {x: 1.2199999, y: 2.9209504}
+    newSize: {x: 1.2199999, y: 2.9209504}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
@@ -976,7 +976,7 @@ Camera:
     height: 1
   near clip plane: 0.3
   far clip plane: 1000
-  field of view: 69
+  field of view: 42.4
   orthographic: 0
   orthographic size: 3.57
   m_Depth: -1
@@ -1066,7 +1066,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CameraFollow
   FollowSpeed: 2
-  yOffset: 2.45
+  yOffset: 2.21
   target: {fileID: 976078987}
 --- !u!1 &1421244072
 GameObject:
