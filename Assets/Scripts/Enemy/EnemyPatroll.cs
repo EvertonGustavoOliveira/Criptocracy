@@ -1,6 +1,5 @@
 using UnityEngine;
 using System.Collections;
-using UnityEngine.SceneManagement;
 
 public class EnemyPatrol : MonoBehaviour
 {
@@ -9,6 +8,9 @@ public class EnemyPatrol : MonoBehaviour
     [SerializeField] private float waitBeforeTurn = 2f;
     [SerializeField] private float waitAfterTurn = 1f;
 
+    [Header("Animação")]
+    [SerializeField] private Animator animator;
+
     private Rigidbody2D rb;
     private bool isWaiting = false;
     private int direction = 1; 
@@ -16,8 +18,17 @@ public class EnemyPatrol : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-        rb.gravityScale = 0f;
         rb.freezeRotation = true; 
+
+        if (animator == null) animator = GetComponent<Animator>();
+    }
+
+    void Update()
+    {
+        if (animator != null)
+        {
+            animator.SetBool("isWalking", !isWaiting);
+        }
     }
 
     void FixedUpdate()
@@ -28,7 +39,7 @@ public class EnemyPatrol : MonoBehaviour
         }
         else
         {
-            rb.linearVelocity = Vector2.zero;
+            rb.linearVelocity = new Vector2(0, rb.linearVelocity.y);
         }
     }
 
@@ -49,22 +60,16 @@ public class EnemyPatrol : MonoBehaviour
         
         direction *= -1;
 
-        if (direction == -1)
-        {
-            transform.rotation = Quaternion.Euler(0, 180, 0);
-        }
-        else
-        {
-            transform.rotation = Quaternion.Euler(0, 0, 0);
-        }
+        float escalaX = Mathf.Abs(transform.localScale.x) * direction;
+        transform.localScale = new Vector3(escalaX, transform.localScale.y, transform.localScale.z);
 
         yield return new WaitForSeconds(waitAfterTurn);
 
         isWaiting = false;
     }
-
     public void GameOver()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        UnityEngine.SceneManagement.SceneManager.LoadScene(UnityEngine.SceneManagement.SceneManager.GetActiveScene().name);
     }
+
 }
