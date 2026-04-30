@@ -8,6 +8,9 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float speed = 5f;
     [SerializeField] private string menuSceneName = "MenuFases";
 
+    [Header("Animação")]
+    [SerializeField] private Animator animator;
+
     [Header("Cores")]
     [SerializeField] private Color defaultColor = Color.white;
     [SerializeField] private Color alternateColor = Color.red;
@@ -23,6 +26,8 @@ public class PlayerMovement : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
         rb.freezeRotation = true;
+
+        if (animator == null) animator = GetComponent<Animator>();
 
         isMenuScene = SceneManager.GetActiveScene().name == menuSceneName;
 
@@ -40,6 +45,12 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
+        ManejarInput();
+        ManejarAnimacoes();
+    }
+
+    private void ManejarInput()
+    {
         var keyboard = Keyboard.current;
         if (keyboard == null) return;
 
@@ -51,9 +62,27 @@ public class PlayerMovement : MonoBehaviour
         if (keyboard.dKey.isPressed || keyboard.rightArrowKey.isPressed) input.x += 1f;
         if (keyboard.sKey.isPressed || keyboard.downArrowKey.isPressed) input.y -= 1f;
         if (keyboard.wKey.isPressed || keyboard.upArrowKey.isPressed) input.y += 1f;
+        
         input.Normalize();
 
         if (keyboard.iKey.wasPressedThisFrame) TogglePlayerColor();
+    }
+
+    private void ManejarAnimacoes()
+    {
+        if (animator == null) return;
+
+        bool movendo = input.sqrMagnitude > 0.01f;
+        animator.SetBool("isRunning", movendo);
+
+        if (input.x > 0.1f)
+        {
+            transform.localScale = new Vector3(Mathf.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);
+        }
+        else if (input.x < -0.1f)
+        {
+            transform.localScale = new Vector3(-Mathf.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);
+        }
     }
 
     void FixedUpdate()
@@ -70,5 +99,4 @@ public class PlayerMovement : MonoBehaviour
         isAlternateColor = !isAlternateColor;
         spriteRenderer.color = isAlternateColor ? alternateColor : defaultColor;
     }
-
 }
