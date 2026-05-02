@@ -1,19 +1,19 @@
 fileFormatVersion: 2
-guid: b586a0f28d8eaeb659500c460621f5a3
+guid: 0720f22e031e1d702b6a3a116cb8c0ad
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -5323475927405281126
-    second: assets2_0
+      213: 446166951030714438
+    second: assets ian_0
   - first:
-      213: -4345970371696158822
-    second: assets2_1
+      213: 2874783507046538780
+    second: assets ian_1
   - first:
-      213: 3952994656310335272
-    second: assets2_2
+      213: -2391050569184688565
+    second: assets ian_2
   - first:
-      213: 5556305626822657466
-    second: assets2_3
+      213: -6246963313806842674
+    second: assets ian_3
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -109,29 +109,29 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: assets2_0
+      name: assets ian_0
       rect:
         serializedVersion: 2
-        x: 526
-        y: 321
-        width: 550
-        height: 159
+        x: 0
+        y: 319
+        width: 1281
+        height: 321
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 159}
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: a904aa859d63f16b0800000000000000
-      internalID: -5323475927405281126
+      spriteID: 64074b26a7a113600800000000000000
+      internalID: 446166951030714438
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: assets2_1
+      name: assets ian_1
       rect:
         serializedVersion: 2
         x: 149
@@ -139,21 +139,21 @@ TextureImporter:
         width: 182
         height: 191
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: a979dae09f200b3c0800000000000000
-      internalID: -4345970371696158822
+      spriteID: c1e19af4e5845e720800000000000000
+      internalID: 2874783507046538780
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: assets2_2
+      name: assets ian_2
       rect:
         serializedVersion: 2
         x: 629
@@ -161,21 +161,21 @@ TextureImporter:
         width: 182
         height: 171
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 827156032bbdbd630800000000000000
-      internalID: 3952994656310335272
+      spriteID: b4640c7fc2841ded0800000000000000
+      internalID: -2391050569184688565
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: assets2_3
+      name: assets ian_3
       rect:
         serializedVersion: 2
         x: 1109
@@ -183,15 +183,15 @@ TextureImporter:
         width: 182
         height: 171
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: ab5c44e6786fb1d40800000000000000
-      internalID: 5556305626822657466
+      spriteID: ec465a3c6f35e49a0800000000000000
+      internalID: -6246963313806842674
       vertices: []
       indices: 
       edges: []
@@ -200,7 +200,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 6b6e294ca89565d0e8c85d372e14163e
+    spriteID: 
     internalID: 0
     vertices: []
     indices: 
@@ -210,10 +210,10 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      assets2_0: -5323475927405281126
-      assets2_1: -4345970371696158822
-      assets2_2: 3952994656310335272
-      assets2_3: 5556305626822657466
+      assets ian_0: 446166951030714438
+      assets ian_1: 2874783507046538780
+      assets ian_2: -2391050569184688565
+      assets ian_3: -6246963313806842674
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
