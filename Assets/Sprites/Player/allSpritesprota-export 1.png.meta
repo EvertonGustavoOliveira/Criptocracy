@@ -1,0 +1,429 @@
+fileFormatVersion: 2
+guid: 2000609200bd0430989ab0562f09952b
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 4502218294873239974
+    second: allSpritesprota-export 1_0
+  - first:
+      213: 617605631909198194
+    second: allSpritesprota-export 1_1
+  - first:
+      213: 8788018239169308459
+    second: allSpritesprota-export 1_2
+  - first:
+      213: 8354513803861947008
+    second: allSpritesprota-export 1_3
+  - first:
+      213: -5269678744135155629
+    second: allSpritesprota-export 1_4
+  - first:
+      213: 5908475161259312244
+    second: allSpritesprota-export 1_5
+  - first:
+      213: -9048408992257095116
+    second: allSpritesprota-export 1_6
+  - first:
+      213: -1318470044767919366
+    second: allSpritesprota-export 1_7
+  - first:
+      213: 7695808688088789022
+    second: allSpritesprota-export 1_8
+  - first:
+      213: -5470336900191204530
+    second: allSpritesprota-export 1_9
+  - first:
+      213: 8973105502163886531
+    second: allSpritesprota-export 1_10
+  - first:
+      213: -5874250072486668299
+    second: allSpritesprota-export 1_11
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: allSpritesprota-export 1_0
+      rect:
+        serializedVersion: 2
+        x: 89
+        y: 649
+        width: 122
+        height: 292
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6a13f277fa71b7e30800000000000000
+      internalID: 4502218294873239974
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: allSpritesprota-export 1_1
+      rect:
+        serializedVersion: 2
+        x: 409
+        y: 649
+        width: 122
+        height: 302
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2797a3dcc0d229800800000000000000
+      internalID: 617605631909198194
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: allSpritesprota-export 1_2
+      rect:
+        serializedVersion: 2
+        x: 79
+        y: 329
+        width: 122
+        height: 292
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b272751170055f970800000000000000
+      internalID: 8788018239169308459
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: allSpritesprota-export 1_3
+      rect:
+        serializedVersion: 2
+        x: 399
+        y: 329
+        width: 132
+        height: 302
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 082f94e5a0231f370800000000000000
+      internalID: 8354513803861947008
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: allSpritesprota-export 1_4
+      rect:
+        serializedVersion: 2
+        x: 719
+        y: 329
+        width: 172
+        height: 302
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 350c5672a175ed6b0800000000000000
+      internalID: -5269678744135155629
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: allSpritesprota-export 1_5
+      rect:
+        serializedVersion: 2
+        x: 89
+        y: 9
+        width: 122
+        height: 252
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 474841fcade1ff150800000000000000
+      internalID: 5908475161259312244
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: allSpritesprota-export 1_6
+      rect:
+        serializedVersion: 2
+        x: 379
+        y: 19
+        width: 152
+        height: 292
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 43ac01a46f79d6280800000000000000
+      internalID: -9048408992257095116
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: allSpritesprota-export 1_7
+      rect:
+        serializedVersion: 2
+        x: 699
+        y: 29
+        width: 152
+        height: 282
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: af26d96da7ad3bde0800000000000000
+      internalID: -1318470044767919366
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: allSpritesprota-export 1_8
+      rect:
+        serializedVersion: 2
+        x: 1029
+        y: 49
+        width: 182
+        height: 252
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e10b5e84a310dca60800000000000000
+      internalID: 7695808688088789022
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: allSpritesprota-export 1_9
+      rect:
+        serializedVersion: 2
+        x: 1359
+        y: 9
+        width: 122
+        height: 282
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e4b446682957514b0800000000000000
+      internalID: -5470336900191204530
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: allSpritesprota-export 1_10
+      rect:
+        serializedVersion: 2
+        x: 1679
+        y: 9
+        width: 132
+        height: 302
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3c1e494a9efd68c70800000000000000
+      internalID: 8973105502163886531
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: allSpritesprota-export 1_11
+      rect:
+        serializedVersion: 2
+        x: 1999
+        y: 9
+        width: 172
+        height: 302
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5f79e93aea87a7ea0800000000000000
+      internalID: -5874250072486668299
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      allSpritesprota-export 1_0: 4502218294873239974
+      allSpritesprota-export 1_1: 617605631909198194
+      allSpritesprota-export 1_10: 8973105502163886531
+      allSpritesprota-export 1_11: -5874250072486668299
+      allSpritesprota-export 1_2: 8788018239169308459
+      allSpritesprota-export 1_3: 8354513803861947008
+      allSpritesprota-export 1_4: -5269678744135155629
+      allSpritesprota-export 1_5: 5908475161259312244
+      allSpritesprota-export 1_6: -9048408992257095116
+      allSpritesprota-export 1_7: -1318470044767919366
+      allSpritesprota-export 1_8: 7695808688088789022
+      allSpritesprota-export 1_9: -5470336900191204530
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
