@@ -1,0 +1,377 @@
+fileFormatVersion: 2
+guid: 24ad5f081d777b10987791b101482469
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -4438732434715642387
+    second: saindobarril1-Sheetquality_0
+  - first:
+      213: -3975802855129665053
+    second: saindobarril1-Sheetquality_1
+  - first:
+      213: -2329338093185181588
+    second: saindobarril1-Sheetquality_2
+  - first:
+      213: -2621237502444595906
+    second: saindobarril1-Sheetquality_3
+  - first:
+      213: 4847687441039083098
+    second: saindobarril1-Sheetquality_4
+  - first:
+      213: -2871665735984976830
+    second: saindobarril1-Sheetquality_5
+  - first:
+      213: 9069858320497497762
+    second: saindobarril1-Sheetquality_6
+  - first:
+      213: 3384301286897815415
+    second: saindobarril1-Sheetquality_7
+  - first:
+      213: -1067743790939796630
+    second: saindobarril1-Sheetquality_8
+  - first:
+      213: 2886242766450417646
+    second: saindobarril1-Sheetquality_9
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: saindobarril1-Sheetquality_0
+      rect:
+        serializedVersion: 2
+        x: 69
+        y: 9
+        width: 182
+        height: 262
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: de5f4c73e547662c0800000000000000
+      internalID: -4438732434715642387
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: saindobarril1-Sheetquality_1
+      rect:
+        serializedVersion: 2
+        x: 389
+        y: 9
+        width: 182
+        height: 302
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3e133033e5c13d8c0800000000000000
+      internalID: -3975802855129665053
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: saindobarril1-Sheetquality_2
+      rect:
+        serializedVersion: 2
+        x: 709
+        y: 9
+        width: 182
+        height: 302
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c6859e978578cafd0800000000000000
+      internalID: -2329338093185181588
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: saindobarril1-Sheetquality_3
+      rect:
+        serializedVersion: 2
+        x: 1029
+        y: 9
+        width: 182
+        height: 302
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e359bd2216e7f9bd0800000000000000
+      internalID: -2621237502444595906
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: saindobarril1-Sheetquality_4
+      rect:
+        serializedVersion: 2
+        x: 1349
+        y: 9
+        width: 182
+        height: 311
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a56c1412b02764340800000000000000
+      internalID: 4847687441039083098
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: saindobarril1-Sheetquality_5
+      rect:
+        serializedVersion: 2
+        x: 1669
+        y: 9
+        width: 182
+        height: 302
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 24c64f45a3bc528d0800000000000000
+      internalID: -2871665735984976830
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: saindobarril1-Sheetquality_6
+      rect:
+        serializedVersion: 2
+        x: 1989
+        y: 9
+        width: 182
+        height: 311
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2a6df5c961c9edd70800000000000000
+      internalID: 9069858320497497762
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: saindobarril1-Sheetquality_7
+      rect:
+        serializedVersion: 2
+        x: 2309
+        y: 9
+        width: 182
+        height: 302
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 77f0172f61477fe20800000000000000
+      internalID: 3384301286897815415
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: saindobarril1-Sheetquality_8
+      rect:
+        serializedVersion: 2
+        x: 2629
+        y: 9
+        width: 182
+        height: 262
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a6b87e5edac9e21f0800000000000000
+      internalID: -1067743790939796630
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: saindobarril1-Sheetquality_9
+      rect:
+        serializedVersion: 2
+        x: 2949
+        y: 9
+        width: 182
+        height: 292
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: eef51dd018efd0820800000000000000
+      internalID: 2886242766450417646
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      saindobarril1-Sheetquality_0: -4438732434715642387
+      saindobarril1-Sheetquality_1: -3975802855129665053
+      saindobarril1-Sheetquality_2: -2329338093185181588
+      saindobarril1-Sheetquality_3: -2621237502444595906
+      saindobarril1-Sheetquality_4: 4847687441039083098
+      saindobarril1-Sheetquality_5: -2871665735984976830
+      saindobarril1-Sheetquality_6: 9069858320497497762
+      saindobarril1-Sheetquality_7: 3384301286897815415
+      saindobarril1-Sheetquality_8: -1067743790939796630
+      saindobarril1-Sheetquality_9: 2886242766450417646
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
