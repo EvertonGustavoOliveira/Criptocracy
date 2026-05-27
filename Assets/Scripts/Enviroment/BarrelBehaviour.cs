@@ -6,13 +6,17 @@ public class BarrelBehaviour : MonoBehaviour
     [SerializeField] private string playerTag = "Player";
     [SerializeField] private string hiddenTag = "Untagged";
     [SerializeField] private Animator barrelAnimator;
-    [SerializeField] private float hideAnimDuration = 0.5f;
-    [SerializeField] private float unhideAnimDuration = 0.5f;
+
+    [Header("Configurações de Tempo Manual")]
+    [Tooltip("Tempo exato (em segundos) que a animação de SAÍDA demora para fechar o barril completamente.")]
+    [SerializeField] private float unhideDuration = 0.6f; 
 
     private GameObject playerInRange;
     private GameObject hiddenPlayerRef;
     private bool isPlayerHidden = false;
+    private bool isTransitioning = false; 
     private bool savedRigidbodySimulated;
+    
     private Collider2D[] cachedColliders = new Collider2D[0];
     private bool[] cachedColliderStates = new bool[0];
     private SpriteRenderer[] cachedRenderers = new SpriteRenderer[0];
@@ -37,13 +41,13 @@ public class BarrelBehaviour : MonoBehaviour
     void Update()
     {
         var keyboard = Keyboard.current;
-        if (keyboard == null) return;
+        if (keyboard == null || isTransitioning) return; 
 
         if (!keyboard.iKey.wasPressedThisFrame) return;
 
         if (isPlayerHidden && hiddenPlayerRef != null)
         {
-            StartUnhideSequence(hiddenPlayerRef);
+            StartUnhideSequence();
             return;
         }
 
@@ -55,33 +59,28 @@ public class BarrelBehaviour : MonoBehaviour
 
     private void StartHideSequence(GameObject player)
     {
+        isTransitioning = true;
+        
+        var movement = player.GetComponent<PlatPlayerMovement>();
+        if (movement != null) movement.enabled = false;
+
+        hiddenPlayerRef = player;
+
         if (barrelAnimator != null)
         {
             barrelAnimator.SetBool("isHiding", true);
             barrelAnimator.SetBool("isUnhiding", false);
         }
-        StartCoroutine(HideAfterDelay(player, hideAnimDuration));
     }
 
-    private System.Collections.IEnumerator HideAfterDelay(GameObject player, float delay)
+    // Mantido via Animation Event na animação de ENTRADA (Hiding)
+    public void PerformHide()
     {
-        yield return new WaitForSeconds(delay);
-        PerformHide(player);
-        if (barrelAnimator != null)
-        {
-            barrelAnimator.SetBool("isHiding", false);
-        }
-    }
+        if (hiddenPlayerRef == null) return;
 
-    private void PerformHide(GameObject player)
-    {
         isPlayerHidden = true;
-        hiddenPlayerRef = player;
 
-        var movement = player.GetComponent<PlatPlayerMovement>();
-        if (movement != null) movement.enabled = false;
-
-        cachedColliders = player.GetComponentsInChildren<Collider2D>(true);
+        cachedColliders = hiddenPlayerRef.GetComponentsInChildren<Collider2D>(true);
         cachedColliderStates = new bool[cachedColliders.Length];
         for (int i = 0; i < cachedColliders.Length; i++)
         {
@@ -89,7 +88,7 @@ public class BarrelBehaviour : MonoBehaviour
             cachedColliders[i].enabled = false;
         }
 
-        cachedRenderers = player.GetComponentsInChildren<SpriteRenderer>(true);
+        cachedRenderers = hiddenPlayerRef.GetComponentsInChildren<SpriteRenderer>(true);
         cachedRendererStates = new bool[cachedRenderers.Length];
         for (int i = 0; i < cachedRenderers.Length; i++)
         {
@@ -97,7 +96,7 @@ public class BarrelBehaviour : MonoBehaviour
             cachedRenderers[i].enabled = false;
         }
 
-        var rb = player.GetComponent<Rigidbody2D>();
+        var rb = hiddenPlayerRef.GetComponent<Rigidbody2D>();
         if (rb != null)
         {
             rb.linearVelocity = Vector2.zero;
@@ -106,59 +105,71 @@ public class BarrelBehaviour : MonoBehaviour
             rb.simulated = false;
         }
 
-        player.tag = hiddenTag;
+        hiddenPlayerRef.tag = hiddenTag;
+
+        if (barrelAnimator != null)
+        {
+            barrelAnimator.SetBool("isHiding", false);
+        }
+        
+        isTransitioning = false; 
     }
 
-    private void StartUnhideSequence(GameObject player)
+    private void StartUnhideSequence()
     {
+        isTransitioning = true;
+        
         if (barrelAnimator != null)
         {
             barrelAnimator.SetBool("isUnhiding", true);
             barrelAnimator.SetBool("isHiding", false);
         }
-        StartCoroutine(UnhideAfterDelay(player, unhideAnimDuration));
+        
+        // Dispara a rotina com base no tempo manual estrito que você colocar no Inspector
+        StartCoroutine(WaitForUnhideManual(unhideDuration));
     }
 
-    private System.Collections.IEnumerator UnhideAfterDelay(GameObject player, float delay)
+    private System.Collections.IEnumerator WaitForUnhideManual(float delay)
     {
+        // Garante a espera absoluta do tempo estipulado, independente do estado do Animator
         yield return new WaitForSeconds(delay);
-        PerformUnhide(player);
+
+        PerformUnhide();
+    }
+
+    private void PerformUnhide()
+    {
+        if (hiddenPlayerRef == null) return;
+
+        // 1. Reseta os parâmetros do Animator PRIMEIRO para sumir com o frame antigo do barril
         if (barrelAnimator != null)
         {
             barrelAnimator.SetBool("isUnhiding", false);
+            barrelAnimator.SetBool("isHiding", false);
         }
-    }
 
-    private void PerformUnhide(GameObject player)
-    {
-        isPlayerHidden = false;
-        hiddenPlayerRef = null;
-
-        var movement = player.GetComponent<PlatPlayerMovement>();
-        if (movement != null) movement.enabled = true;
-
+        // 2. Só agora devolve os Sprites e Colisores do Personagem
         for (int i = 0; i < cachedColliders.Length; i++)
         {
-            if (cachedColliders[i] != null)
-            {
-                cachedColliders[i].enabled = cachedColliderStates[i];
-            }
+            if (cachedColliders[i] != null) cachedColliders[i].enabled = cachedColliderStates[i];
         }
 
         for (int i = 0; i < cachedRenderers.Length; i++)
         {
-            if (cachedRenderers[i] != null)
-            {
-                cachedRenderers[i].enabled = cachedRendererStates[i];
-            }
+            if (cachedRenderers[i] != null) cachedRenderers[i].enabled = cachedRendererStates[i];
         }
 
-        var rb = player.GetComponent<Rigidbody2D>();
-        if (rb != null)
-        {
-            rb.simulated = savedRigidbodySimulated;
-        }
+        var rb = hiddenPlayerRef.GetComponent<Rigidbody2D>();
+        if (rb != null) rb.simulated = savedRigidbodySimulated;
 
-        player.tag = playerTag;
+        var movement = hiddenPlayerRef.GetComponent<PlatPlayerMovement>();
+        if (movement != null) movement.enabled = true;
+
+        hiddenPlayerRef.tag = playerTag;
+
+        isPlayerHidden = false;
+        hiddenPlayerRef = null;
+        
+        isTransitioning = false; 
     }
 }
