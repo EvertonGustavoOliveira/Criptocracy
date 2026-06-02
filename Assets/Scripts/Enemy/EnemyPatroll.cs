@@ -13,6 +13,7 @@ public class EnemyPatrol : MonoBehaviour
 
     private Rigidbody2D rb;
     private bool isWaiting = false;
+    
     [SerializeField] private int direction = 1; 
 
     void Start()
@@ -45,7 +46,7 @@ public class EnemyPatrol : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.CompareTag("Parede") && !isWaiting)
+        if (collision.gameObject.CompareTag("ParedeInimigo") && !isWaiting)
         {
             StartCoroutine(ChangeDirectionRoutine());
         }
@@ -59,17 +60,23 @@ public class EnemyPatrol : MonoBehaviour
         yield return new WaitForSeconds(waitBeforeTurn);
         
         direction *= -1;
-
-        float escalaX = Mathf.Abs(transform.localScale.x) * direction;
-        transform.localScale = new Vector3(escalaX, transform.localScale.y, transform.localScale.z);
+        
+        Flip();
 
         yield return new WaitForSeconds(waitAfterTurn);
 
         isWaiting = false;
     }
+
+    private void Flip()
+    {
+        Vector3 currentScale = transform.localScale;
+        currentScale.x *= -1; // Multiplicar por -1 apenas inverte a escala que ele já tem
+        transform.localScale = currentScale;
+    }
+
     public void GameOver()
     {
         UnityEngine.SceneManagement.SceneManager.LoadScene(UnityEngine.SceneManagement.SceneManager.GetActiveScene().name);
     }
-
 }
