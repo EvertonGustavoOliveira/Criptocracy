@@ -13,7 +13,7 @@ public class EnemyPatrol : MonoBehaviour
 
     private Rigidbody2D rb;
     private bool isWaiting = false;
-    private int direction = 1; 
+    [SerializeField] private int direction = 1; 
 
     void Start()
     {
