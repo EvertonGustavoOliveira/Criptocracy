@@ -12,6 +12,10 @@ public class PlatPlayerMovement : MonoBehaviour
     [Tooltip("Tempo em segundos do frame de agachamento na animação")]
     [SerializeField] private float tempoDeAgachamento = 0.15f; 
 
+    [Header("Física e Colisores")]
+    [Tooltip("Arraste aqui o colisor específico dos PÉS do seu Player")]
+    [SerializeField] private Collider2D coliserPe; 
+
     [Header("Animação")]
     [SerializeField] private Animator animator;
     [SerializeField] private SpriteRenderer spriteRenderer;
@@ -22,23 +26,42 @@ public class PlatPlayerMovement : MonoBehaviour
     private bool estaPreparandoPulo = false;
 
     void Start()
-{
-    rb = GetComponent<Rigidbody2D>();
-    rb.freezeRotation = true;
-    
-    isGrounded = true; 
+    {
+        rb = GetComponent<Rigidbody2D>();
+        rb.freezeRotation = true;
+        
+        isGrounded = true; 
 
-    if (spriteRenderer == null) spriteRenderer = GetComponent<SpriteRenderer>();
-}
+        if (spriteRenderer == null) spriteRenderer = GetComponent<SpriteRenderer>();
+    }
 
+    // O truque acontece aqui nas checagens de colisão:
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.CompareTag(groundTag)) 
+        // "Se o colisor que tocou o chão foi o colisor do pé..."
+        if (collision.otherCollider == coliserPe && collision.gameObject.CompareTag(groundTag)) 
         {
             isGrounded = true;
-            animator.SetFloat("yVelocity", 0);
+            if (animator != null) animator.SetFloat("yVelocity", 0);
         }
     }
+
+    private void OnCollisionStay2D(Collision2D collision)
+    {
+        if (collision.otherCollider == coliserPe && collision.gameObject.CompareTag(groundTag)) 
+        {
+            isGrounded = true;
+        }
+    }
+
+    private void OnCollisionExit2D(Collision2D collision)
+    {
+        if (collision.otherCollider == coliserPe && collision.gameObject.CompareTag(groundTag)) 
+        {
+            isGrounded = false;
+        }
+    }
+
     void Update()
     {
         ManejarInput();
@@ -105,15 +128,5 @@ public class PlatPlayerMovement : MonoBehaviour
         }
 
         estaPreparandoPulo = false;
-    }
-
-    private void OnCollisionStay2D(Collision2D collision)
-    {
-        if (collision.gameObject.CompareTag(groundTag)) isGrounded = true;
-    }
-
-    private void OnCollisionExit2D(Collision2D collision)
-    {
-        if (collision.gameObject.CompareTag(groundTag)) isGrounded = false;
     }
 }

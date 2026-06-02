@@ -49,50 +49,50 @@ public class DoorTeleport : MonoBehaviour
 
         isTeleporting = true;
 
-        // 1. Fecha a tela
+        // 1. Fecha a tela completamente (Blackout)
         yield return StartCoroutine(FadeController.Instance.FadeOut(0.3f));
 
-        // 2. Desativa o Cinemachine Brain para evitar o deslize
+        // 2. Desativa o Cinemachine Brain para evitar o deslize visual
         if (cameraBrain != null) cameraBrain.enabled = false;
 
-        // 3. ATIVA a nova área antes do player chegar (assim os inimigos nascem nos lugares certos)
+        // 3. ATIVA a nova área (os inimigos aparecem nos postos deles)
         if (areaDestino != null)
         {
             areaDestino.SetActive(true);
         }
 
-        // 4. Troca as prioridades das câmeras
+        // 4. Troca as prioridades das câmeras virtuais
         if (cameraAtual != null && cameraDestino != null)
         {
             cameraAtual.Priority = 0;      
             cameraDestino.Priority = 10;   
         }
 
-        // 5. Teleporta o jogador
+        // 5. Teleporta o jogador para o destino
         player.position = destination.position;
 
-        // 6. Move a câmera principal para o destino
+        // 6. Move a câmera principal fisicamente para o destino
         if (Camera.main != null)
         {
             Camera.main.transform.position = new Vector3(destination.position.x, destination.position.y, Camera.main.transform.position.z);
         }
 
-        // 7. DESATIVA a área antiga (economiza memória e processamento)
+        // 7. Espera um frame para a Unity estabilizar a nova física e posicionar a câmera
+        yield return new WaitForEndOfFrame();
+        if (cameraBrain != null) cameraBrain.enabled = true;
+
+        // 8. CRUCIAL: Abre a tela PRIMEIRO, enquanto este script ainda está ativo e vivo
+        yield return StartCoroutine(FadeController.Instance.FadeIn(0.3f));
+
+        // 9. SÓ AGORA desativamos a área antiga com segurança
         if (areaAtual != null)
         {
             areaAtual.SetActive(false);
         }
 
-        // 8. Espera o frame renderizar e liga o Cinemachine de volta
-        yield return new WaitForEndOfFrame();
-        if (cameraBrain != null) cameraBrain.enabled = true;
-
-        yield return new WaitForSeconds(0.05f);
-
-        // 9. Abre a tela
-        yield return StartCoroutine(FadeController.Instance.FadeIn(0.3f));
-
-        yield return new WaitForSeconds(0.5f);
+        // Cooldown final
+        yield return new WaitForSeconds(0.2f);
         isTeleporting = false;
+        yield break;
     }
 }

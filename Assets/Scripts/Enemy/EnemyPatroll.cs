@@ -46,11 +46,12 @@ public class EnemyPatrol : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.CompareTag("ParedeInimigo") && !isWaiting)
+        if ((collision.gameObject.CompareTag("ParedeInimigo") || collision.gameObject.CompareTag("Parede")) && !isWaiting)
         {
             StartCoroutine(ChangeDirectionRoutine());
         }
     }
+    
 
     private IEnumerator ChangeDirectionRoutine()
     {
