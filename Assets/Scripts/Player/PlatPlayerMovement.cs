@@ -9,14 +9,16 @@ public class PlatPlayerMovement : MonoBehaviour
     [SerializeField] private float speed = 7f;
     [SerializeField] private float jumpForce = 12f;
     [SerializeField] private string groundTag = "Chao";
+    [SerializeField] private string wallTag = "Parede";
 
     [Tooltip("Tempo em segundos do frame de agachamento na animação")]
     [SerializeField] private float tempoDeAgachamento = 0.15f;
 
     [Header("Física e Colisores")]
     [Tooltip("Arraste aqui o colisor específico dos PÉS do seu Player")]
-    [SerializeField] private Collider2D coliserPe;
+    [SerializeField] private Collider2D feetCollider;
     [SerializeField] private float tempoParaResetarOffsetDaPlataforma = 0.8f;
+    [SerializeField] private float wallCheckDistance = 0.08f;
 
     [Header("Animação")]
     [SerializeField] private Animator animator;
@@ -24,8 +26,12 @@ public class PlatPlayerMovement : MonoBehaviour
 
     private Rigidbody2D rb;
     private readonly List<Collider2D> bodyColliders = new List<Collider2D>();
+    private readonly Dictionary<Collider2D, int> wallContacts = new Dictionary<Collider2D, int>();
     private float horizontalInput;
     private bool isGrounded;
+    private bool isTouchingWallLeft;
+    private bool isTouchingWallRight;
+    private bool isTouchingWall;
     private bool estaPreparandoPulo = false;
     private PlatformEffector2D activePlatformEffector;
     private Collider2D activePlatformCollider;
@@ -47,12 +53,13 @@ public class PlatPlayerMovement : MonoBehaviour
     void Start()
     {
         bodyColliders.Clear();
+        wallContacts.Clear();
 
         Collider2D[] colliders = GetComponentsInChildren<Collider2D>(true);
         for (int i = 0; i < colliders.Length; i++)
         {
             Collider2D collider = colliders[i];
-            if (collider != null && !collider.isTrigger && collider != coliserPe && !bodyColliders.Contains(collider))
+            if (collider != null && !collider.isTrigger && collider != feetCollider && !bodyColliders.Contains(collider))
             {
                 bodyColliders.Add(collider);
             }
@@ -62,20 +69,91 @@ public class PlatPlayerMovement : MonoBehaviour
 
         if (spriteRenderer == null) spriteRenderer = GetComponent<SpriteRenderer>();
 
-        if (coliserPe == null)
+        if (feetCollider == null)
         {
-            Debug.LogWarning("PlatPlayerMovement: 'coliserPe' (feet collider) is not assigned in the Inspector.", this);
+            Debug.LogWarning("PlatPlayerMovement: 'feetCollider' (feet collider) is not assigned in the Inspector.", this);
         }
     }
 
     private bool IsGroundTrigger(Collider2D other)
     {
-        return coliserPe != null && other != null && (other.CompareTag(groundTag) || IsOneWayPlatform(other));
+        return feetCollider != null && other != null && (other.CompareTag(groundTag) || IsOneWayPlatform(other));
     }
 
     private bool IsOneWayPlatform(Collider2D other)
     {
         return other != null && other.GetComponent<PlatformEffector2D>() != null;
+    }
+
+    private bool IsWall(Collider2D other)
+    {
+        return other != null && other.CompareTag(wallTag);
+    }
+
+    private int GetWallSide(Collision2D collision)
+    {
+        if (collision == null || collision.contactCount == 0)
+        {
+            return 0;
+        }
+
+        ContactPoint2D contact = collision.GetContact(0);
+        if (Mathf.Abs(contact.normal.x) <= Mathf.Abs(contact.normal.y))
+        {
+            return 0;
+        }
+
+        return contact.normal.x > 0f ? -1 : 1;
+    }
+
+    private void RefreshWallState()
+    {
+        isTouchingWallLeft = false;
+        isTouchingWallRight = false;
+
+        foreach (int side in wallContacts.Values)
+        {
+            if (side < 0)
+            {
+                isTouchingWallLeft = true;
+            }
+            else if (side > 0)
+            {
+                isTouchingWallRight = true;
+            }
+        }
+
+        isTouchingWall = isTouchingWallLeft || isTouchingWallRight;
+    }
+
+    private void RegisterWallCollision(Collision2D collision)
+    {
+        if (collision == null || collision.collider == null)
+        {
+            return;
+        }
+
+        int wallSide = GetWallSide(collision);
+        if (wallSide == 0)
+        {
+            return;
+        }
+
+        wallContacts[collision.collider] = wallSide;
+        RefreshWallState();
+    }
+
+    private void ClearWallCollision(Collider2D other)
+    {
+        if (other == null)
+        {
+            return;
+        }
+
+        if (wallContacts.Remove(other))
+        {
+            RefreshWallState();
+        }
     }
 
     private void RegisterPlatformCollision(Collider2D other)
@@ -170,6 +248,11 @@ public class PlatPlayerMovement : MonoBehaviour
     {
         if (collision.otherCollider != null && bodyColliders.Contains(collision.otherCollider))
         {
+            if (IsWall(collision.collider))
+            {
+                RegisterWallCollision(collision);
+            }
+
             RegisterPlatformCollision(collision.collider);
         }
     }
@@ -178,6 +261,11 @@ public class PlatPlayerMovement : MonoBehaviour
     {
         if (collision.otherCollider != null && bodyColliders.Contains(collision.otherCollider))
         {
+            if (IsWall(collision.collider))
+            {
+                RegisterWallCollision(collision);
+            }
+
             RegisterPlatformCollision(collision.collider);
         }
     }
@@ -186,6 +274,11 @@ public class PlatPlayerMovement : MonoBehaviour
     {
         if (collision.otherCollider != null && bodyColliders.Contains(collision.otherCollider))
         {
+            if (IsWall(collision.collider))
+            {
+                ClearWallCollision(collision.collider);
+            }
+
             ClearPlatformCollision(collision.collider);
         }
     }
@@ -218,12 +311,47 @@ public class PlatPlayerMovement : MonoBehaviour
     {
         if (rb == null) return;
 
-        rb.linearVelocity = new Vector2(horizontalInput * speed, rb.linearVelocity.y);
+        float moveInput = horizontalInput;
+        if (moveInput != 0f && IsWallAhead(moveInput))
+        {
+            moveInput = 0f;
+        }
+
+        rb.linearVelocity = new Vector2(moveInput * speed, rb.linearVelocity.y);
 
         if (animator != null)
         {
             animator.SetFloat("yVelocity", rb.linearVelocity.y);
         }
+    }
+
+    private bool IsWallAhead(float moveInput)
+    {
+        if (rb == null || bodyColliders.Count == 0 || Mathf.Approximately(moveInput, 0f))
+        {
+            return false;
+        }
+
+        Vector2 direction = moveInput > 0f ? Vector2.right : Vector2.left;
+        ContactFilter2D filter = new ContactFilter2D
+        {
+            useTriggers = false,
+            useLayerMask = false
+        };
+
+        RaycastHit2D[] hits = new RaycastHit2D[8];
+        int hitCount = rb.Cast(direction, filter, hits, wallCheckDistance);
+
+        for (int i = 0; i < hitCount; i++)
+        {
+            RaycastHit2D hit = hits[i];
+            if (hit.collider != null && IsWall(hit.collider))
+            {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     private void ManejarInput()
