@@ -4,9 +4,15 @@ using System.Collections;
 public class EnemyPatrol : MonoBehaviour
 {
     [Header("Configurações de Patrulha")]
+    [Tooltip("Marque para o inimigo ficar parado no lugar")]
+    [SerializeField] private bool isStationary = false; 
     [SerializeField] private float speed = 3f;
     [SerializeField] private float waitBeforeTurn = 2f;
     [SerializeField] private float waitAfterTurn = 1f;
+
+    [Header("Morte por Esmagamento")]
+    [Tooltip("Coloque aqui o prefab/objeto do inimigo morto que vai aparecer no chão")]
+    [SerializeField] private GameObject deadEnemyPrefab;
 
     [Header("Animação")]
     [SerializeField] private Animator animator;
@@ -28,30 +34,70 @@ public class EnemyPatrol : MonoBehaviour
     {
         if (animator != null)
         {
-            animator.SetBool("isWalking", !isWaiting);
+            // Se for estático, a animação de andar fica sempre falsa (ele fica em Idle)
+            if (isStationary)
+            {
+                animator.SetBool("isWalking", false);
+            }
+            else
+            {
+                animator.SetBool("isWalking", !isWaiting);
+            }
         }
     }
 
     void FixedUpdate()
     {
-        if (!isWaiting)
+        // Se for estático ou estiver esperando, zera a velocidade horizontal
+        if (isStationary || isWaiting)
         {
-            rb.linearVelocity = new Vector2(direction * speed, rb.linearVelocity.y);
+            rb.linearVelocity = new Vector2(0, rb.linearVelocity.y);
         }
         else
         {
-            rb.linearVelocity = new Vector2(0, rb.linearVelocity.y);
+            rb.linearVelocity = new Vector2(direction * speed, rb.linearVelocity.y);
         }
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if ((collision.gameObject.CompareTag("ParedeInimigo") || collision.gameObject.CompareTag("Parede")) && !isWaiting)
+        // 1. CHECAGEM DE MORTE PELA CAIXA
+        if (collision.gameObject.CompareTag("Caixa"))
         {
-            StartCoroutine(ChangeDirectionRoutine());
+            // Analisa os pontos de contato da colisão
+            foreach (ContactPoint2D ponto in collision.contacts)
+            {
+                // Se a direção do impacto (normal) estiver apontando para baixo,
+                // significa que a caixa caiu em cima da cabeça do inimigo
+                if (ponto.normal.y < -0.5f)
+                {
+                    MorrerEsmagado();
+                    return; // Interrompe o resto do código para ele não tentar virar
+                }
+            }
+        }
+
+        // 2. LÓGICA NORMAL DE PATRULHA (Só acontece se ele não for estático)
+        if (!isStationary && !isWaiting)
+        {
+            if (collision.gameObject.CompareTag("ParedeInimigo") || collision.gameObject.CompareTag("Parede"))
+            {
+                StartCoroutine(ChangeDirectionRoutine());
+            }
         }
     }
     
+    private void MorrerEsmagado()
+    {
+        // Cria o corpo morto exatamente na mesma posição e rotação que o inimigo está agora
+        if (deadEnemyPrefab != null)
+        {
+            Instantiate(deadEnemyPrefab, transform.position, transform.rotation);
+        }
+
+        // Destrói o objeto deste inimigo vivo
+        Destroy(gameObject);
+    }
 
     private IEnumerator ChangeDirectionRoutine()
     {
@@ -72,7 +118,7 @@ public class EnemyPatrol : MonoBehaviour
     private void Flip()
     {
         Vector3 currentScale = transform.localScale;
-        currentScale.x *= -1; // Multiplicar por -1 apenas inverte a escala que ele já tem
+        currentScale.x *= -1; 
         transform.localScale = currentScale;
     }
 

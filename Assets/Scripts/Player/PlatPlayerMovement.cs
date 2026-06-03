@@ -8,6 +8,7 @@ public class PlatPlayerMovement : MonoBehaviour
     [SerializeField] private float speed = 7f;
     [SerializeField] private float jumpForce = 12f;
     [SerializeField] private string groundTag = "Chao";
+    [SerializeField] private string boxTag = "Caixa";
     
     [Tooltip("Tempo em segundos do frame de agachamento na animação")]
     [SerializeField] private float tempoDeAgachamento = 0.15f; 
@@ -24,6 +25,9 @@ public class PlatPlayerMovement : MonoBehaviour
     private float horizontalInput;
     private bool isGrounded;
     private bool estaPreparandoPulo = false;
+    
+    // Referência para o script de puxar caixa
+    private PlayerPull scriptDePuxar; 
 
     void Start()
     {
@@ -33,13 +37,14 @@ public class PlatPlayerMovement : MonoBehaviour
         isGrounded = true; 
 
         if (spriteRenderer == null) spriteRenderer = GetComponent<SpriteRenderer>();
+        
+        // Pega o script PlayerPull automaticamente no início
+        scriptDePuxar = GetComponent<PlayerPull>();
     }
 
-    // O truque acontece aqui nas checagens de colisão:
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        // "Se o colisor que tocou o chão foi o colisor do pé..."
-        if (collision.otherCollider == coliserPe && collision.gameObject.CompareTag(groundTag)) 
+        if (collision.otherCollider == coliserPe && (collision.gameObject.CompareTag(groundTag) || collision.gameObject.CompareTag(boxTag))) 
         {
             isGrounded = true;
             if (animator != null) animator.SetFloat("yVelocity", 0);
@@ -48,7 +53,7 @@ public class PlatPlayerMovement : MonoBehaviour
 
     private void OnCollisionStay2D(Collision2D collision)
     {
-        if (collision.otherCollider == coliserPe && collision.gameObject.CompareTag(groundTag)) 
+        if (collision.otherCollider == coliserPe && (collision.gameObject.CompareTag(groundTag) || collision.gameObject.CompareTag(boxTag))) 
         {
             isGrounded = true;
         }
@@ -67,7 +72,11 @@ public class PlatPlayerMovement : MonoBehaviour
         ManejarInput();
         ManejarAnimacoes();
         
-        if (Keyboard.current.spaceKey.wasPressedThisFrame && isGrounded && !estaPreparandoPulo)
+        // Verifica se o script de puxar existe e se ele está segurando a caixa
+        bool segurandoCaixa = (scriptDePuxar != null && scriptDePuxar.isHoldingBox);
+        
+        // Trava o pulo se estiver segurando a caixa (!segurandoCaixa)
+        if (Keyboard.current.spaceKey.wasPressedThisFrame && isGrounded && !estaPreparandoPulo && !segurandoCaixa)
         {
             StartCoroutine(SequenciaDePulo());
         }
@@ -100,13 +109,19 @@ public class PlatPlayerMovement : MonoBehaviour
         animator.SetBool("isRunning", Mathf.Abs(horizontalInput) > 0.01f);
         animator.SetBool("isGrounded", isGrounded);
 
-        if (horizontalInput > 0.1f)
+        bool segurandoCaixa = (scriptDePuxar != null && scriptDePuxar.isHoldingBox);
+
+        // Só vira o personagem automaticamente se não estiver segurando a caixa
+        if (!segurandoCaixa)
         {
-            transform.localScale = new Vector3(Mathf.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);
-        }
-        else if (horizontalInput < -0.1f)
-        {
-            transform.localScale = new Vector3(-Mathf.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);
+            if (horizontalInput > 0.1f)
+            {
+                transform.localScale = new Vector3(Mathf.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);
+            }
+            else if (horizontalInput < -0.1f)
+            {
+                transform.localScale = new Vector3(-Mathf.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);
+            }
         }
     }
 
