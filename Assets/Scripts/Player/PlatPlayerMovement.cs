@@ -17,6 +17,9 @@ public class PlatPlayerMovement : MonoBehaviour
     [Tooltip("Arraste aqui o colisor específico dos PÉS do seu Player")]
     [SerializeField] private Collider2D coliserPe; 
 
+    [Tooltip("Ângulo mínimo da normal do chão para considerar como 'chão' (0 = plano horizontal, 90 = parede vertical). 60 é um bom valor padrão.")]
+    [SerializeField] private float anguloMinimoChao = 60f;
+
     [Header("Animação")]
     [SerializeField] private Animator animator;
     [SerializeField] private SpriteRenderer spriteRenderer;
@@ -26,7 +29,10 @@ public class PlatPlayerMovement : MonoBehaviour
     private bool isGrounded;
     private bool estaPreparandoPulo = false;
     
-    // Referência para o script de puxar caixa
+    // Rastreia se o player está tocando uma parede e de qual lado
+    private bool tocandoParedeDireita = false;
+    private bool tocandoParedeEsquerda = false;
+    
     private PlayerPull scriptDePuxar; 
 
     void Start()
@@ -37,34 +43,80 @@ public class PlatPlayerMovement : MonoBehaviour
         isGrounded = true; 
 
         if (spriteRenderer == null) spriteRenderer = GetComponent<SpriteRenderer>();
-        
-        // Pega o script PlayerPull automaticamente no início
         scriptDePuxar = GetComponent<PlayerPull>();
+    }
+
+    private bool ColisaoEhChao(Collision2D collision)
+    {
+        if (collision.otherCollider != coliserPe) return false;
+
+        bool tagValida = collision.gameObject.CompareTag(groundTag) || 
+                         collision.gameObject.CompareTag(boxTag);
+        if (!tagValida) return false;
+
+        foreach (ContactPoint2D contato in collision.contacts)
+        {
+            float angulo = Vector2.Angle(contato.normal, Vector2.up);
+            if (angulo < anguloMinimoChao)
+                return true;
+        }
+
+        return false;
+    }
+
+    // Verifica se a colisão é com uma parede (normal aproximadamente horizontal)
+    private void VerificarParede(Collision2D collision)
+    {
+        bool tagValida = collision.gameObject.CompareTag(groundTag) || 
+                         collision.gameObject.CompareTag(boxTag);
+        if (!tagValida) return;
+
+        foreach (ContactPoint2D contato in collision.contacts)
+        {
+            float angulo = Vector2.Angle(contato.normal, Vector2.up);
+            // Ângulo próximo de 90° indica parede
+            if (angulo >= anguloMinimoChao)
+            {
+                // Normal apontando para a direita = parede à esquerda do player
+                if (contato.normal.x > 0.5f)
+                    tocandoParedeEsquerda = true;
+                // Normal apontando para a esquerda = parede à direita do player
+                else if (contato.normal.x < -0.5f)
+                    tocandoParedeDireita = true;
+            }
+        }
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.otherCollider == coliserPe && (collision.gameObject.CompareTag(groundTag) || collision.gameObject.CompareTag(boxTag))) 
+        if (ColisaoEhChao(collision))
         {
             isGrounded = true;
             if (animator != null) animator.SetFloat("yVelocity", 0);
         }
+        VerificarParede(collision);
     }
 
     private void OnCollisionStay2D(Collision2D collision)
     {
-        if (collision.otherCollider == coliserPe && (collision.gameObject.CompareTag(groundTag) || collision.gameObject.CompareTag(boxTag))) 
+        if (ColisaoEhChao(collision))
         {
             isGrounded = true;
         }
+        VerificarParede(collision);
     }
 
     private void OnCollisionExit2D(Collision2D collision)
     {
-        if (collision.otherCollider == coliserPe && collision.gameObject.CompareTag(groundTag)) 
+        if (collision.otherCollider == coliserPe &&
+            (collision.gameObject.CompareTag(groundTag) || collision.gameObject.CompareTag(boxTag)))
         {
             isGrounded = false;
         }
+
+        // Reseta as flags de parede ao sair da colisão
+        tocandoParedeDireita = false;
+        tocandoParedeEsquerda = false;
     }
 
     void Update()
@@ -72,10 +124,8 @@ public class PlatPlayerMovement : MonoBehaviour
         ManejarInput();
         ManejarAnimacoes();
         
-        // Verifica se o script de puxar existe e se ele está segurando a caixa
         bool segurandoCaixa = (scriptDePuxar != null && scriptDePuxar.isHoldingBox);
         
-        // Trava o pulo se estiver segurando a caixa (!segurandoCaixa)
         if (Keyboard.current.spaceKey.wasPressedThisFrame && isGrounded && !estaPreparandoPulo && !segurandoCaixa)
         {
             StartCoroutine(SequenciaDePulo());
@@ -84,7 +134,18 @@ public class PlatPlayerMovement : MonoBehaviour
 
     void FixedUpdate()
     {
-        rb.linearVelocity = new Vector2(horizontalInput * speed, rb.linearVelocity.y);
+        float velocidadeHorizontal = horizontalInput * speed;
+
+        // Bloqueia o movimento na direção da parede enquanto estiver no ar
+        if (!isGrounded)
+        {
+            if (tocandoParedeDireita && velocidadeHorizontal > 0f)
+                velocidadeHorizontal = 0f;
+            if (tocandoParedeEsquerda && velocidadeHorizontal < 0f)
+                velocidadeHorizontal = 0f;
+        }
+
+        rb.linearVelocity = new Vector2(velocidadeHorizontal, rb.linearVelocity.y);
         
         if (animator != null)
         {
@@ -111,17 +172,12 @@ public class PlatPlayerMovement : MonoBehaviour
 
         bool segurandoCaixa = (scriptDePuxar != null && scriptDePuxar.isHoldingBox);
 
-        // Só vira o personagem automaticamente se não estiver segurando a caixa
         if (!segurandoCaixa)
         {
             if (horizontalInput > 0.1f)
-            {
                 transform.localScale = new Vector3(Mathf.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);
-            }
             else if (horizontalInput < -0.1f)
-            {
                 transform.localScale = new Vector3(-Mathf.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);
-            }
         }
     }
 
@@ -130,9 +186,7 @@ public class PlatPlayerMovement : MonoBehaviour
         estaPreparandoPulo = true;
 
         if (animator != null)
-        {
             animator.SetTrigger("jumpTrigger");
-        }
 
         yield return new WaitForSeconds(tempoDeAgachamento);
 
