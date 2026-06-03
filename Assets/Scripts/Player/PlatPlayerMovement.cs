@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
-using System.Collections; 
+using System.Collections;
+using System.Collections.Generic;
 
 public class PlatPlayerMovement : MonoBehaviour
 {
@@ -8,57 +9,184 @@ public class PlatPlayerMovement : MonoBehaviour
     [SerializeField] private float speed = 7f;
     [SerializeField] private float jumpForce = 12f;
     [SerializeField] private string groundTag = "Chao";
-    
+
     [Tooltip("Tempo em segundos do frame de agachamento na animação")]
-    [SerializeField] private float tempoDeAgachamento = 0.15f; 
+    [SerializeField] private float tempoDeAgachamento = 0.15f;
 
     [Header("Física e Colisores")]
     [Tooltip("Arraste aqui o colisor específico dos PÉS do seu Player")]
-    [SerializeField] private Collider2D coliserPe; 
+    [SerializeField] private Collider2D coliserPe;
+    [SerializeField] private float tempoParaResetarOffsetDaPlataforma = 0.8f;
 
     [Header("Animação")]
     [SerializeField] private Animator animator;
     [SerializeField] private SpriteRenderer spriteRenderer;
 
     private Rigidbody2D rb;
+    private readonly List<Collider2D> bodyColliders = new List<Collider2D>();
     private float horizontalInput;
     private bool isGrounded;
     private bool estaPreparandoPulo = false;
+    private PlatformEffector2D activePlatformEffector;
+    private Collider2D activePlatformCollider;
+    private Coroutine dropThroughCoroutine;
+
+    private void Awake()
+    {
+        rb = GetComponent<Rigidbody2D>();
+        if (rb != null)
+        {
+            rb.freezeRotation = true;
+        }
+        else
+        {
+            Debug.LogWarning("PlatPlayerMovement: Rigidbody2D not found on GameObject.", this);
+        }
+    }
 
     void Start()
     {
-        rb = GetComponent<Rigidbody2D>();
-        rb.freezeRotation = true;
-        
-        isGrounded = true; 
+        bodyColliders.Clear();
+
+        Collider2D[] colliders = GetComponentsInChildren<Collider2D>(true);
+        for (int i = 0; i < colliders.Length; i++)
+        {
+            Collider2D collider = colliders[i];
+            if (collider != null && !collider.isTrigger && collider != coliserPe && !bodyColliders.Contains(collider))
+            {
+                bodyColliders.Add(collider);
+            }
+        }
+
+        isGrounded = false;
 
         if (spriteRenderer == null) spriteRenderer = GetComponent<SpriteRenderer>();
+
+        if (coliserPe == null)
+        {
+            Debug.LogWarning("PlatPlayerMovement: 'coliserPe' (feet collider) is not assigned in the Inspector.", this);
+        }
     }
 
-    // O truque acontece aqui nas checagens de colisão:
+    private bool IsGroundTrigger(Collider2D other)
+    {
+        return coliserPe != null && other != null && (other.CompareTag(groundTag) || IsOneWayPlatform(other));
+    }
+
+    private bool IsOneWayPlatform(Collider2D other)
+    {
+        return other != null && other.GetComponent<PlatformEffector2D>() != null;
+    }
+
+    private void RegisterPlatformCollision(Collider2D other)
+    {
+        if (other == null || bodyColliders.Count == 0)
+        {
+            return;
+        }
+
+        PlatformEffector2D platformEffector = other.GetComponent<PlatformEffector2D>();
+        if (platformEffector == null)
+        {
+            return;
+        }
+
+        activePlatformEffector = platformEffector;
+        activePlatformCollider = other;
+    }
+
+    private void ClearPlatformCollision(Collider2D other)
+    {
+        if (other == null)
+        {
+            return;
+        }
+
+        PlatformEffector2D platformEffector = other.GetComponent<PlatformEffector2D>();
+        if (platformEffector != null && activePlatformEffector == platformEffector)
+        {
+            activePlatformEffector = null;
+            activePlatformCollider = null;
+        }
+    }
+
+    private void SetBodyCollisionWithPlatform(Collider2D platformCollider, bool ignore)
+    {
+        if (platformCollider == null)
+        {
+            return;
+        }
+
+        for (int i = 0; i < bodyColliders.Count; i++)
+        {
+            Collider2D bodyCollider = bodyColliders[i];
+            if (bodyCollider != null)
+            {
+                Physics2D.IgnoreCollision(bodyCollider, platformCollider, ignore);
+            }
+        }
+    }
+
+    private void SetGrounded(bool grounded)
+    {
+        if (isGrounded == grounded)
+        {
+            return;
+        }
+
+        isGrounded = grounded;
+
+        if (!isGrounded && animator != null)
+        {
+            animator.SetFloat("yVelocity", rb != null ? rb.linearVelocity.y : 0f);
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (IsGroundTrigger(other))
+        {
+            SetGrounded(true);
+        }
+    }
+
+    private void OnTriggerStay2D(Collider2D other)
+    {
+        if (IsGroundTrigger(other))
+        {
+            SetGrounded(true);
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D other)
+    {
+        if (IsGroundTrigger(other))
+        {
+            SetGrounded(false);
+        }
+    }
+
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        // "Se o colisor que tocou o chão foi o colisor do pé..."
-        if (collision.otherCollider == coliserPe && collision.gameObject.CompareTag(groundTag)) 
+        if (collision.otherCollider != null && bodyColliders.Contains(collision.otherCollider))
         {
-            isGrounded = true;
-            if (animator != null) animator.SetFloat("yVelocity", 0);
+            RegisterPlatformCollision(collision.collider);
         }
     }
 
     private void OnCollisionStay2D(Collision2D collision)
     {
-        if (collision.otherCollider == coliserPe && collision.gameObject.CompareTag(groundTag)) 
+        if (collision.otherCollider != null && bodyColliders.Contains(collision.otherCollider))
         {
-            isGrounded = true;
+            RegisterPlatformCollision(collision.collider);
         }
     }
 
     private void OnCollisionExit2D(Collision2D collision)
     {
-        if (collision.otherCollider == coliserPe && collision.gameObject.CompareTag(groundTag)) 
+        if (collision.otherCollider != null && bodyColliders.Contains(collision.otherCollider))
         {
-            isGrounded = false;
+            ClearPlatformCollision(collision.collider);
         }
     }
 
@@ -66,8 +194,21 @@ public class PlatPlayerMovement : MonoBehaviour
     {
         ManejarInput();
         ManejarAnimacoes();
-        
-        if (Keyboard.current.spaceKey.wasPressedThisFrame && isGrounded && !estaPreparandoPulo)
+
+        if (!estaPreparandoPulo && activePlatformEffector != null)
+        {
+            var keyboard = Keyboard.current;
+            if (keyboard != null && isGrounded && (keyboard.sKey.wasPressedThisFrame || keyboard.downArrowKey.wasPressedThisFrame))
+            {
+                if (dropThroughCoroutine == null)
+                {
+                    dropThroughCoroutine = StartCoroutine(DropThroughPlatform());
+                }
+            }
+        }
+
+        var currentKeyboard = Keyboard.current;
+        if (currentKeyboard != null && currentKeyboard.spaceKey.wasPressedThisFrame && isGrounded && !estaPreparandoPulo)
         {
             StartCoroutine(SequenciaDePulo());
         }
@@ -75,8 +216,10 @@ public class PlatPlayerMovement : MonoBehaviour
 
     void FixedUpdate()
     {
+        if (rb == null) return;
+
         rb.linearVelocity = new Vector2(horizontalInput * speed, rb.linearVelocity.y);
-        
+
         if (animator != null)
         {
             animator.SetFloat("yVelocity", rb.linearVelocity.y);
@@ -128,5 +271,37 @@ public class PlatPlayerMovement : MonoBehaviour
         }
 
         estaPreparandoPulo = false;
+    }
+
+    private IEnumerator DropThroughPlatform()
+    {
+        if (activePlatformEffector == null || activePlatformCollider == null)
+        {
+            dropThroughCoroutine = null;
+            yield break;
+        }
+
+        PlatformEffector2D platformEffector = activePlatformEffector;
+        Collider2D platformCollider = activePlatformCollider;
+
+        platformEffector.surfaceArc = 180f;
+        SetBodyCollisionWithPlatform(platformCollider, true);
+
+        yield return new WaitForSeconds(tempoParaResetarOffsetDaPlataforma);
+
+        if (platformEffector != null)
+        {
+            platformEffector.surfaceArc = 180f;
+        }
+
+        SetBodyCollisionWithPlatform(platformCollider, false);
+
+        if (activePlatformEffector == platformEffector)
+        {
+            activePlatformEffector = null;
+            activePlatformCollider = null;
+        }
+
+        dropThroughCoroutine = null;
     }
 }
