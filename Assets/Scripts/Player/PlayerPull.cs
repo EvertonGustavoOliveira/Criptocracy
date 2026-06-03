@@ -29,7 +29,7 @@ public class PlayerPull : MonoBehaviour
 
     private void Update()
     {
-        if (Keyboard.current.eKey.wasPressedThisFrame)
+        if (Keyboard.current.qKey.wasPressedThisFrame)
         {
             if (connectedBox == null)
                 StartPull();

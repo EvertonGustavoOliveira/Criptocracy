@@ -11,8 +11,8 @@ public class EnemyPatrol : MonoBehaviour
     [SerializeField] private float waitAfterTurn = 1f;
 
     [Header("Morte por Esmagamento")]
-    [Tooltip("Coloque aqui o prefab/objeto do inimigo morto que vai aparecer no chão")]
-    [SerializeField] private GameObject deadEnemyPrefab;
+    [Tooltip("Arraste aqui o objeto do 'inimigo_farelo' que JÁ ESTÁ na cena (desativado)")]
+    [SerializeField] private GameObject inimigoFareloObj;
 
     [Header("Animação")]
     [SerializeField] private Animator animator;
@@ -34,7 +34,6 @@ public class EnemyPatrol : MonoBehaviour
     {
         if (animator != null)
         {
-            // Se for estático, a animação de andar fica sempre falsa (ele fica em Idle)
             if (isStationary)
             {
                 animator.SetBool("isWalking", false);
@@ -48,7 +47,6 @@ public class EnemyPatrol : MonoBehaviour
 
     void FixedUpdate()
     {
-        // Se for estático ou estiver esperando, zera a velocidade horizontal
         if (isStationary || isWaiting)
         {
             rb.linearVelocity = new Vector2(0, rb.linearVelocity.y);
@@ -59,43 +57,63 @@ public class EnemyPatrol : MonoBehaviour
         }
     }
 
+    // Usado para bater em Paredes Sólidas do cenário
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        // 1. CHECAGEM DE MORTE PELA CAIXA
-        if (collision.gameObject.CompareTag("Caixa"))
-        {
-            // Analisa os pontos de contato da colisão
-            foreach (ContactPoint2D ponto in collision.contacts)
-            {
-                // Se a direção do impacto (normal) estiver apontando para baixo,
-                // significa que a caixa caiu em cima da cabeça do inimigo
-                if (ponto.normal.y < -0.5f)
-                {
-                    MorrerEsmagado();
-                    return; // Interrompe o resto do código para ele não tentar virar
-                }
-            }
-        }
+        // LOG 1: Mostra tudo o que o corpo SÓLIDO do inimigo está esbarrando
+        Debug.Log($"[SÓLIDO] Inimigo trombou em: {collision.gameObject.name} | Tag: {collision.gameObject.tag}");
 
-        // 2. LÓGICA NORMAL DE PATRULHA (Só acontece se ele não for estático)
         if (!isStationary && !isWaiting)
         {
             if (collision.gameObject.CompareTag("ParedeInimigo") || collision.gameObject.CompareTag("Parede"))
             {
+                Debug.Log("Parede detectada na colisão sólida! Iniciando curva...");
                 StartCoroutine(ChangeDirectionRoutine());
             }
         }
     }
     
-    private void MorrerEsmagado()
+    // MÁGICA NOVA: Detecta a caixa passando por dentro dele (precisa que um dos colisores seja Trigger)
+    private void OnTriggerEnter2D(Collider2D other)
     {
-        // Cria o corpo morto exatamente na mesma posição e rotação que o inimigo está agora
-        if (deadEnemyPrefab != null)
+        // LOG 2: Mostra tudo o que entrou no sensor (Trigger) do inimigo
+        Debug.Log($"[TRIGGER] Algo entrou no sensor fantasma do Inimigo: {other.name} | Tag: {other.tag}");
+
+        if (other.CompareTag("Caixa"))
         {
-            Instantiate(deadEnemyPrefab, transform.position, transform.rotation);
+            Rigidbody2D caixaRb = other.GetComponent<Rigidbody2D>();
+            
+            if (caixaRb != null)
+            {
+                // LOG 3: Fofoca os números exatos da caixa na hora que ela encostou
+                Debug.Log($"[CAIXA DETECTADA] Altura da Caixa: {other.transform.position.y} | Altura Inimigo: {transform.position.y} | Velocidade Y da Caixa: {caixaRb.linearVelocity.y}");
+
+                // Se a caixa estiver mais alta que o centro do inimigo E estiver caindo (velocidade Y negativa)
+                if (other.transform.position.y > transform.position.y && caixaRb.linearVelocity.y < -0.1f)
+                {
+                    Debug.Log(">>> CONDIÇÃO DE MORTE ATENDIDA! Esmagando inimigo... <<<");
+                    MorrerEsmagado(other.gameObject);
+                }
+                else
+                {
+                    Debug.Log(">>> CAIXA IGNORADA! A caixa encostou, mas ou não estava caindo (velocidade Y insuficiente) ou não bateu por cima. <<<");
+                }
+            }
+            else
+            {
+                Debug.LogWarning("ERRO: A caixa que tocou no inimigo não tem um Rigidbody2D!");
+            }
+        }
+    }
+
+    private void MorrerEsmagado(GameObject caixa)
+    {
+        if (inimigoFareloObj != null)
+        {
+            inimigoFareloObj.SetActive(true);
         }
 
-        // Destrói o objeto deste inimigo vivo
+        Destroy(caixa);
         Destroy(gameObject);
     }
 
